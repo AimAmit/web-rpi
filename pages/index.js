@@ -1,25 +1,22 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react'
+import { w3cwebsocket } from 'websocket'
+
+const client = new w3cwebsocket('ws://go-rpi.herokuapp.com/ws')
 
 export default function Home() {
   const [temperature, setTemperature] = useState(-9999)
 
   useEffect(() => {
-    const t = setInterval(() => {
-      fetch(`/data.json`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      })
-        .then(res => res.json())
-        .then(res => setTemperature(res.temperature / 1000))
-
-    }, 1000);
-    return () => {
-      clearTimeout(t)
+    client.onopen = () => {
+      console.log("connected");
     }
+
+    client.onmessage = message => {
+      setTemperature(message.data)
+    }
+
   }, [])
 
   return (
