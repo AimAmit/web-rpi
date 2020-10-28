@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react'
 import { w3cwebsocket } from 'websocket'
 
-const client = new w3cwebsocket('ws://go-rpi.herokuapp.com/ws')
+const client = new w3cwebsocket('wss://go-rpi.herokuapp.com/ws')
 
 export default function Home() {
   const [temperature, setTemperature] = useState(-9999)
