@@ -1,0 +1,5 @@
+.git
+.gitignore
+Dockerfile
+go-server
+READNE.md
